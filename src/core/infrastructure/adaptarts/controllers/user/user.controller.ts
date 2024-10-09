@@ -3,38 +3,60 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateUserDto } from 'src/core/aplication/dto/create-user.dto';
 import { UpdateUserDto } from 'src/core/aplication/dto/update-user.dto';
 import { UserService } from 'src/core/aplication/users/user.service';
 import { User } from 'src/core/domain/user.entity';
 @ApiTags('user')
-@Controller({ version: '1', path: 'user' })
+@Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @ApiBody({ type: User })
-  @Post()
-  async createUser(data: CreateUserDto): Promise<User> {
-    console.log(data);
+  @ApiBody({ type: CreateUserDto })
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+    example: {
+      message: 'Usuario creado correctamente',
+    },
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  @ApiCreatedResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+    example: {
+      message: 'Usuario creado correctamente',
+    },
+  })
+  @Post('1.0')
+  @HttpCode(201)
+  async createUser(@Body() data: CreateUserDto): Promise<object> {
     return this.userService.create(data);
   }
-
-  @Get()
-  async getAllUsers(): Promise<User[]> {
-    return this.userService.findAll();
+  @Get('1.0')
+  async getAllUsers(@Query() params): Promise<User[]> {
+    const { limit } = params;
+    return this.userService.findAll(limit);
   }
 
-  @Get('/:id')
+  @Get('1.0/:id')
   async getOneUser(@Param('id') id: string): Promise<User> {
     return this.userService.findOne(id);
   }
 
-  @Put('/:id')
+  @Put('1.0/:id')
   async updateUser(
     @Param('id') id: string,
     @Body() data: UpdateUserDto,
@@ -42,7 +64,7 @@ export class UserController {
     return this.userService.update(id, data);
   }
 
-  @Delete('/:id')
+  @Delete('1.0/:id')
   async deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.delete(id);
   }
