@@ -8,7 +8,7 @@ export class LoggerService {
   //Creacion de loggers para la creacion de loggers
   private loggerInfo: Logger;
   private loggerError: Logger;
-  private loggerWaen: Logger;
+  private loggerWarn: Logger;
   private loggerAll: Logger;
   //Instanciar la creacion de loggers
   constructor() {
@@ -47,7 +47,7 @@ export class LoggerService {
         }),
       ],
     });
-    this.loggerError = createLogger({
+    this.loggerWarn = createLogger({
       level: 'warn',
       format: format.combine(dateFormat, textFormat),
       transports: [
@@ -82,7 +82,7 @@ export class LoggerService {
     this.loggerAll.error(message);
   }
   warn(message: string) {
-    this.loggerWaen.warn(message);
+    this.loggerWarn.warn(message);
     this.loggerAll.warn(message);
   }
   debug(message: string) {

@@ -15,9 +15,9 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/core/aplication/dto/create-user.dto';
-import { UpdateUserDto } from 'src/core/aplication/dto/update-user.dto';
-import { UserService } from 'src/core/aplication/users/user.service';
+import { CreateUserDto } from 'src/core/application/dto/create-user.dto';
+import { UpdateUserDto } from 'src/core/application/dto/update-user.dto';
+import { UserService } from 'src/core/application/users/user.service';
 import { User } from 'src/core/domain/user.entity';
 @ApiTags('user')
 @Controller('user')

@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { User } from 'src/core/domain/user.entity';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { LoggerService } from '../logger/logger.service';
+import { LoggerService } from '../loggger/logger.service';
 
 @Injectable()
 export class UserService {
