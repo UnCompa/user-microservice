@@ -6,7 +6,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     UserModule,
     ConfigModule.forRoot({
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}${process.env.NODE_ENV === 'development' ? '.local' : ''}`,
       isGlobal: true, // Hace que el ConfigModule esté disponible en toda la app sin necesidad de importarlo en cada módulo
     }),
   ],

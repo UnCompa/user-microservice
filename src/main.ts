@@ -13,7 +13,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('User API')
-    .setDescription('Api example using ')
+    .setDescription(
+      `This a microservice using NestJs for ${appConfig.mode} mode`,
+    )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

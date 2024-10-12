@@ -14,7 +14,7 @@ export class UserService {
 
   async create(data: CreateUserDto): Promise<object> {
     try {
-      const user = await this.prisma.user.create({
+      const user = await this.prisma.users.create({
         data: data,
       });
       this.logger.log(`Usuario creado correctamente: ${JSON.stringify(user)}`);
@@ -30,18 +30,18 @@ export class UserService {
   }
   async findAll(limit: string): Promise<User[]> {
     if (limit) {
-      return this.prisma.user.findMany({
+      return this.prisma.users.findMany({
         take: parseInt(limit),
       });
     } else {
-      return this.prisma.user.findMany();
+      return this.prisma.users.findMany();
     }
   }
   async findOne(id: string): Promise<User> {
-    return this.prisma.user.findUnique({ where: { id: id } });
+    return this.prisma.users.findUnique({ where: { id: id } });
   }
   async update(id: string, data: UpdateUserDto): Promise<User> {
-    return this.prisma.user.update({
+    return this.prisma.users.update({
       where: { id: id },
       data: {
         name: data.name,
@@ -50,6 +50,6 @@ export class UserService {
     });
   }
   async delete(id: string): Promise<User> {
-    return this.prisma.user.delete({ where: { id } });
+    return this.prisma.users.delete({ where: { id } });
   }
 }
